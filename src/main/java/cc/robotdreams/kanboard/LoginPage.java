@@ -17,4 +17,8 @@ public class LoginPage extends BasePage
 
         return errorMessage.shouldBe(Condition.exist, Condition.visible, Condition.appear, Condition.enabled, Condition.not(Condition.empty));
     }
+
+    public LoginPage goToLoginPage() {
+        return new LoginPage();
+    }
 }
