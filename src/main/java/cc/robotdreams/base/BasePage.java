@@ -1,11 +1,11 @@
 package cc.robotdreams.base;
 
-import cc.robotdreams.utils.Session;
-import org.openqa.selenium.WebDriver;
+import cc.robotdreams.utils.CustomWebDriverProvider;
+import com.codeborne.selenide.Configuration;
 
 abstract public class BasePage
 {
-    protected WebDriver wd() {
-        return (WebDriver) Session.get();
+    protected String wd() {
+        return Configuration.browser = CustomWebDriverProvider.class.getName();
     }
 }

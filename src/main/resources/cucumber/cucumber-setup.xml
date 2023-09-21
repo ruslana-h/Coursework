@@ -1,0 +1,11 @@
+<suite name="Cucumber Login Test">
+    <test name="Login Feature Tests">
+        <classes>
+            <class name="cc.robotdreams.cucumber.steps.Hooks"/>
+        </classes>
+        <methods>
+            <include name="beforeScenario"/>
+            <include name="afterScenario"/>
+        </methods>
+    </test>
+</suite>

@@ -6,7 +6,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
-public class LoginPage extends BasePage
+public class LoginPage
 {
     final public SelenideElement userName = Selenide.$x("//input[@id='form-username']");
     final public SelenideElement password = Selenide.$x("//input[@id='form-password']");
