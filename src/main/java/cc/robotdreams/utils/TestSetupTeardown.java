@@ -3,15 +3,16 @@ package cc.robotdreams.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import io.cucumber.java.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestNGListener;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.*;
 
 public class TestSetupTeardown implements ITestNGListener
 {
-    @BeforeMethod
-    public void setUp() {
+    @BeforeClass
+    public void setUp()
+    {
         Configuration.reportsFolder = "target/allure-results";
         Selenide.open(String.format("http://%s:%s/%s",
                 Config.HTTP_BASE_URL.value,
@@ -20,8 +21,9 @@ public class TestSetupTeardown implements ITestNGListener
         ));
     }
 
-    @AfterMethod
-    public void tearDown() {
+    @AfterClass
+    public void tearDown()
+    {
         WebDriver driver = WebDriverRunner.getWebDriver();
         if (driver != null) {
             driver.quit();

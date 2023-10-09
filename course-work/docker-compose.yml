@@ -3,7 +3,7 @@ services:
   kanboard:
     image: kanboard/kanboard:latest
     ports:
-      - "8080:80"
+      - "80:80"
       - "443:443"
     volumes:
       - kanboard_data:/var/www/app/data
@@ -13,12 +13,14 @@ services:
       DATABASE_URL: mysql://kanboard:kanboard-secret@db/kanboard
   db:
     image: mariadb:latest
+    ports:
+      - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: kanboard
       MYSQL_USER: kanboard
-      MYSQL_PASSWORD: kanboard-secret
+      MYSQL_PASSWORD: kanboard
     volumes:
       - db:/var/lib/mysql
 volumes:

@@ -12,12 +12,21 @@ public class Config
     static final private List<Param> _paramsList = new LinkedList<>();
 
     static final public Param HTTP_BASE_URL     = new Param("http.base.url",    "localhost", true);
-    static final public Param HTTP_BASE_PORT    = new Param("http.base.port",   "8080",      true);
+    static final public Param HTTP_BASE_PORT    = new Param("http.base.port",   "80",      true);
     static final public Param HTTP_BASE_PAGE    = new Param("http.base.page",   "login",      true);
+    static final public Param HTTP_BASE_API    = new Param("http.base.api",   "jsonrpc.php",      true);
+    static final public Param BASE_USER_NAME    = new Param("base.user.name",   "jsonrpc",      true);
+    static final public Param BASE_USER_TOKEN    = new Param("base.user.token",   "0cfd28d2f0af00ac9778695a633457d4a0b2d9aa4fd5ee4afa92fcee7227",      true);
 
     static final public Param WEB_BROWSER_CHROME    = new Param("web.browser",   "chrome", true);
     static final public Param WEB_BROWSER_FF    = new Param("web.browser",   "firefox", true);
     static final public Param WEB_BROWSER_NO_GUI    = new Param("web.browser.no.gui",   "false", true);
+
+    static final public String baseURI = String.format("http://%s:%s/%s",
+            HTTP_BASE_URL.value,
+            HTTP_BASE_PORT.value,
+            HTTP_BASE_API.value
+    );
 
     static {
         InitErrors.showErrors();
@@ -118,4 +127,7 @@ public class Config
         }
         return props;
     }
+
+
+
 }

@@ -1,6 +1,5 @@
-package cc.robotdreams.kanboard;
+package cc.robotdreams.kanboard.ui;
 
-import cc.robotdreams.base.BasePage;
 import cc.robotdreams.utils.Wait;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -12,6 +11,8 @@ public class LoginPage
     final public SelenideElement password = Selenide.$x("//input[@id='form-password']");
     final public SelenideElement signInButton = Selenide.$x("//button[@type='submit']");
     final public SelenideElement errorMessage = Selenide.$x("//*[contains(text(), 'Bad username or password')]");
+    final public String userNameValue = "admin";
+    final public String passwordValue = "admin";
     public SelenideElement isErrorMessagePresent() {
         Wait.waitWhilePageIsLoading();
 
@@ -20,5 +21,10 @@ public class LoginPage
 
     public LoginPage goToLoginPage() {
         return new LoginPage();
+    }
+    public void fillInLoginForm(){
+        userName.sendKeys(userNameValue);
+        password.sendKeys(passwordValue);
+        signInButton.click();
     }
 }

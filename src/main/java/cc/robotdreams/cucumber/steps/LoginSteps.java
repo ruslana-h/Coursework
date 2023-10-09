@@ -1,8 +1,7 @@
 package cc.robotdreams.cucumber.steps;
 
-import cc.robotdreams.kanboard.LoginPage;
+import cc.robotdreams.kanboard.ui.LoginPage;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
