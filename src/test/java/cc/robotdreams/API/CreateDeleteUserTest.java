@@ -1,31 +1,30 @@
 package cc.robotdreams.API;
 
+import cc.robotdreams.API.POJO.*;
+import cc.robotdreams.kanboard.api.JsonRequestGenerator;
 import cc.robotdreams.utils.Config;
-import cc.robotdreams.utils.TestData;
-import io.restassured.RestAssured;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.given;
+
+@Feature("API tests")
 public class CreateDeleteUserTest
 {
     static int userId;
+    @Description("Create new user by API")
     @Test(groups = "createUser", priority = 1)
     public void createNewUser()
     {
-        String userName = TestData.USER_NAME.getValue();
-        String userPassword = TestData.PASSWORD.getValue();
-        String requestBody = "{"
-                + "\"jsonrpc\": \"2.0\","
-                + "\"method\": \"createUser\","
-                + "\"id\": \"124\","
-                + "\"params\": {"
-                + "\"username\": \"" + userName + "\","
-                + "\"password\": \"" + userPassword + "\""
-                + "}"
-                + "}";
+        String method = "createUser";
+        CreateUser user = new CreateUser(JsonRequestGenerator.generateRandomName(),
+                                         JsonRequestGenerator.generateRandomPassword());
+        Root requestBody = new Root(method, user);
 
-        Response response = RestAssured.given()
+        CreateUserResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -33,33 +32,24 @@ public class CreateDeleteUserTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(CreateUserResponse.class);
 
-        System.out.println(response.getBody().asString());
-        userId = response.jsonPath().getInt("result");
-        System.out.println("Username: " + userName);
-        System.out.println("Password: " + userPassword);
-        System.out.println("id: " + userId);
-
+        Assert.assertNotEquals(response.getResult(), false, "User is not created");
+        userId = response.getResult();
+        System.out.println(userId);
 
     }
 
-
+    @Description("Delete the user by API")
     @Test(priority = 5)
     public void deleteUser()
     {
-        System.out.println("User ID: " + userId);
-        String requestBody = "{"
-                + "\"jsonrpc\": \"2.0\","
-                + "\"method\": \"removeUser\","
-                + "\"id\": 1,"
-                + "\"params\": {"
-                + "\"user_id\":" + userId
-                + "}"
-                + "}";
+        DeleteUser id = new DeleteUser(userId);
 
-        Response response = RestAssured.given()
+        String method = "removeUser";
+        Root requestBody = new Root(method, id);
+
+        DeleteUserResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -67,10 +57,9 @@ public class CreateDeleteUserTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(DeleteUserResponse.class);
 
-        System.out.println(response.getBody().asString());
-        System.out.println("id: " + userId);
+        System.out.println(response.isResult());
+        Assert.assertEquals(true, response.isResult(), "User is not deleted");
     }
 }

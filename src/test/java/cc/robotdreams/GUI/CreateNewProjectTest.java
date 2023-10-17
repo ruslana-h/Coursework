@@ -5,15 +5,17 @@ import cc.robotdreams.kanboard.ui.CreateNewProjectPage;
 import cc.robotdreams.kanboard.ui.LoginPage;
 import cc.robotdreams.utils.TestSetupTeardown;
 import cc.robotdreams.utils.Wait;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
+@Feature("UI tests")
 public class CreateNewProjectTest extends TestSetupTeardown
 {
     LoginPage loginPage;
     CreateNewProjectPage newProjectPage;
-
+    @Description("Create new project for logged in user UI test")
     @Test
     public void CreateNewProject(){
         loginPage = new LoginPage();

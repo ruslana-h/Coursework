@@ -1,9 +1,11 @@
 package cc.robotdreams.API;
 
 import cc.robotdreams.utils.TestSetupTeardown;
+import io.qameta.allure.Feature;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+@Feature("Preconditions for UI tests")
 public class TestPrecondition extends TestSetupTeardown
 {
     CreateDeleteUserTest user = new CreateDeleteUserTest();

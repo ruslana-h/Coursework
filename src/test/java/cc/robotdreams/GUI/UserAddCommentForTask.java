@@ -1,19 +1,24 @@
 package cc.robotdreams.GUI;
 
 import cc.robotdreams.API.TestPrecondition;
+import cc.robotdreams.kanboard.api.JsonRequestGenerator;
 import cc.robotdreams.kanboard.ui.CreateNewTaskPage;
 import cc.robotdreams.kanboard.ui.DashboardPage;
 import cc.robotdreams.kanboard.ui.SaveButton;
 import cc.robotdreams.utils.TestData;
 import cc.robotdreams.utils.Wait;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Feature("UI tests")
 public class UserAddCommentForTask extends TestPrecondition
 {
+    @Description("Add comment for created task UI test")
     @Test
     public void addComment(){
-        String commentText = TestData.COMMENT_TEXT.getValue();
+        String commentText = JsonRequestGenerator.generateRandomTitle();
         LoginUserTest login = new LoginUserTest();
         login.loginUser();
         DashboardPage dashboard = new DashboardPage();

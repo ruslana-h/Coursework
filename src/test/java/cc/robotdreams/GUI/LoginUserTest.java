@@ -4,11 +4,15 @@ import cc.robotdreams.kanboard.ui.LoginPage;
 import cc.robotdreams.utils.TestData;
 import cc.robotdreams.utils.TestSetupTeardown;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Feature("UI tests")
 public class LoginUserTest extends TestSetupTeardown
 {
+    @Description("Login user UI test")
     @Test
     public void loginUser()
     {

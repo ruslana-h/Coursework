@@ -1,33 +1,34 @@
 package cc.robotdreams.API;
 
+import cc.robotdreams.API.POJO.*;
+import cc.robotdreams.kanboard.api.JsonRequestGenerator;
 import cc.robotdreams.utils.Config;
-import cc.robotdreams.utils.TestData;
-import io.restassured.RestAssured;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.restassured.RestAssured.given;
+
+@Feature("API tests")
 public class CreateDeleteProjectTest
 {
-
     static int projectId;
-    @Test(groups = "createProject", priority = 2)
+    @Description("Create new project by API")
+    @Test()
     public void createNewProject()
     {
-        String projectName = TestData.PROJECT_NAME.getValue();
-        String projectDescription = TestData.PROJECT_DESCRIPTION.getValue();
-        String requestBody = "{\n" +
-                "    \"jsonrpc\": \"2.0\",\n" +
-                "    \"method\": \"createProject\",\n" +
-                "    \"id\": 1797076613,\n" +
-                "    \"params\": {\n" +
-                "        \"name\": \"" + projectName + "\",\n" +
-                "        \"description\": \"" + projectDescription + "\"\n" +
-                "    }\n" +
-                "}";
+        String text = JsonRequestGenerator.generateRandomTitle();
+        CreateProject projectNameAndDesc = new CreateProject(text, text);
+        String method = "createProject";
+        Root requestBody = new Root(method, projectNameAndDesc);
 
-        Response response = RestAssured.given()
+        CreateProjectResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -35,29 +36,25 @@ public class CreateDeleteProjectTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(CreateProjectResponse.class);
 
-        System.out.println(response.getBody().asString());
-        projectId = response.jsonPath().getInt("result");
+        projectId = response.getResult();
     }
 
+    @Description("Connect the user to the project by API")
     @Test
     public void addProjectUser()
     {
-        System.out.println(projectId + CreateDeleteUserTest.userId);
-        String requestBody = "{\n" +
-                "    \"jsonrpc\": \"2.0\",\n" +
-                "    \"method\": \"addProjectUser\",\n" +
-                "    \"id\": 1797076613,\n" +
-                "    \"params\": [\n" +
-                "        \"" + projectId + "\",\n" +
-                "        \"" + CreateDeleteUserTest.userId + "\",\n" +
-                "        \"project-editor\"\n" +
-                "    ]\n" +
-                "}\n";
+        List<String> value = new ArrayList<>();
+        value.add(String.valueOf(projectId));
+        value.add(String.valueOf(CreateDeleteUserTest.userId));
+        value.add("project-viewer");
+        //AddProjectToUser params = new AddProjectToUser(value);
+        System.out.println(value);
+        String method = "addProjectUser";
+        Root requestBody = new Root(method, value);
 
-        Response response = RestAssured.given()
+        AddProjectToUserResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -65,27 +62,20 @@ public class CreateDeleteProjectTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(AddProjectToUserResponse.class);
 
-        System.out.println(response.getBody().asString());
-//        String result = response.jsonPath().getString("result");
-//        Assert.assertEquals(result, true, "Project is not added to the User");
+        Assert.assertEquals(response.isResult(), true, "Project is not added to the User");
     }
 
-    @Test(dependsOnGroups = "createTask", priority = 5)
+    @Description("Delete project by API")
+    @Test()
     public void deleteProject()
     {
-        String requestBody = "{\n" +
-                "    \"jsonrpc\": \"2.0\",\n" +
-                "    \"method\": \"removeProject\",\n" +
-                "    \"id\": 46285125,\n" +
-                "    \"params\": {\n" +
-                "        \"project_id\": \"" + projectId + "\"\n" +
-                "    }\n" +
-                "}";
+        DeleteProject id = new DeleteProject(projectId);
+        String method = "removeProject";
+        Root requestBody = new Root(method, id.toString());
 
-        Response response = RestAssured.given()
+        DeleteProjectResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -93,40 +83,9 @@ public class CreateDeleteProjectTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(DeleteProjectResponse.class);
 
-        System.out.println(response.getBody().asString());
-        System.out.println("Id " + projectId);
+        Assert.assertEquals(response.isResult(), true, "Project is not deleted");
     }
-
-//    @Test(groups = "createProjectForLoggedUser")
-//    public void createProjectForLoggedUser()
-//    {
-//        String requestBody = "{\n" +
-//                "    \"jsonrpc\": \"2.0\",\n" +
-//                "    \"method\": \"createMyPrivateProject\",\n" +
-//                "    \"id\": 12367,\n" +
-//                "    \"params\": [\n" +
-//                "        \"my project\"\n" +
-//                "    ]\n" +
-//                "}";
-//
-//        Response response = RestAssured.given()
-//                .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
-//                .contentType(ContentType.JSON)
-//                .body(requestBody)
-//                .when()
-//                .post(Config.baseURI)
-//                .then()
-//                .statusCode(200)
-//                .extract()
-//                .response();
-//
-//        System.out.println(response.getBody().asString());
-//        int privateProjectId = response.jsonPath().getInt("result");
-//        System.out.println(privateProjectId);
-//
-//    }
 
 }

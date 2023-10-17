@@ -3,11 +3,15 @@ package cc.robotdreams.GUI;
 import cc.robotdreams.API.TestPrecondition;
 import cc.robotdreams.kanboard.ui.CreateNewTaskPage;
 import cc.robotdreams.kanboard.ui.DashboardPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Feature("UI tests")
 public class CloseTaskTest extends TestPrecondition
 {
+    @Description("Close created task UI test")
     @Test
     public void closeTask()
     {

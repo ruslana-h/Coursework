@@ -4,11 +4,15 @@ import cc.robotdreams.API.TestPrecondition;
 import cc.robotdreams.kanboard.ui.CreateNewTaskPage;
 import cc.robotdreams.kanboard.ui.DashboardPage;
 import cc.robotdreams.utils.TestData;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Feature("UI tests")
 public class UserCreatesNewTaskTest extends TestPrecondition
 {
+    @Description("User creates new task UI test")
     @Test
     public void userCreateNewTask()
     {

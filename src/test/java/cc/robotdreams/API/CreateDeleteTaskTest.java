@@ -1,46 +1,34 @@
 package cc.robotdreams.API;
 
+import cc.robotdreams.API.POJO.*;
+import cc.robotdreams.kanboard.api.JsonRequestGenerator;
 import cc.robotdreams.utils.Config;
 import cc.robotdreams.utils.TestData;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.given;
+
+@Feature("API tests")
 public class CreateDeleteTaskTest
 {
-    String taskId = null;
+    static int taskId;
+    @Description("Create new task by API")
     @Test
     public void createNewTask()
     {
         int id = CreateDeleteProjectTest.projectId;
-        //int user = CreateDeleteUserTest.userId;
         System.out.println(id);
-        String taskName = TestData.TASK_NAME.getValue();
-        String requestBody = "{"
-                + "\"jsonrpc\": \"2.0\","
-                + "\"method\": \"createTask\","
-                + "\"id\": 1176509643,"
-                + "\"params\": {"
-                + "\"owner_id\": 32,"
-                + "\"creator_id\": 32,"
-                + "\"date_due\": \"2023-11-01\","
-                + "\"description\": \"rrr\","
-                + "\"category_id\": 2,"
-                + "\"score\": 1,"
-                + "\"title\": \"ggg\","
-                + "\"project_id\": 37,"
-                + "\"color_id\": \"green\","
-                + "\"column_id\": 1,"
-                + "\"recurrence_status\": 1,"
-                + "\"recurrence_trigger\": 1,"
-                + "\"recurrence_factor\": 1,"
-                + "\"recurrence_timeframe\": 1,"
-                + "\"recurrence_basedate\": 1"
-                + "}"
-                + "}";
+        CreateTaskParams params = new CreateTaskParams(JsonRequestGenerator.generateRandomTitle(), id);
+        String method = "createTask";
+        Root requestBody = new Root(method, params);
 
-        Response response = RestAssured.given()
+        CreateTaskResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -48,27 +36,21 @@ public class CreateDeleteTaskTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(CreateTaskResponse.class);
 
-        System.out.println(response.getBody().asString());
-        taskId = response.jsonPath().getString("result");
-        System.out.println(taskId);
+        System.out.println(response.getResult());
+        taskId = response.getResult();
+        Assert.assertEquals(response.getResult(), false, "Task is not created");
     }
-
+    @Description("Delete the task by API")
     @Test
     public void deleteTask()
     {
-        String requestBody = "{\n" +
-                "    \"jsonrpc\": \"2.0\",\n" +
-                "    \"method\": \"removeTask\",\n" +
-                "    \"id\": 1423501287,\n" +
-                "    \"params\": {\n" +
-                "        \"task_id\": " + taskId + "\n" +
-                "    }\n" +
-                "}";
+        DeleteTaskParams params = new DeleteTaskParams(taskId);
+        String method = "removeTask";
+        Root requestBody = new Root(method, params);
 
-        Response response = RestAssured.given()
+        DeleteTaskResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -76,9 +58,9 @@ public class CreateDeleteTaskTest
                 .post(Config.baseURI)
                 .then()
                 .statusCode(200)
-                .extract()
-                .response();
+                .extract().as(DeleteTaskResponse.class);
 
-        System.out.println(response.getBody().asString());
+        System.out.println(response.isResult());
+        Assert.assertEquals(true, response.isResult(), "The task is not deleted");
     }
 }
