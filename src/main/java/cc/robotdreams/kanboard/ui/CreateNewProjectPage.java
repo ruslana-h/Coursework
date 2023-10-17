@@ -9,7 +9,7 @@ public class CreateNewProjectPage
     final public SelenideElement projectName = Selenide.$x("//input[@id='form-name']");
     final public SelenideElement projectIdentifier = Selenide.$x("//input[@id='form-identifier']");
     final public SelenideElement addedProject = Selenide.$x("//div/h1/span[2]");
-    final public String name = "Test Project";
+    final public String name = "Test Project2";
     final public String identifier = "TST";
     public void addNewProject(){
         createProject.click();

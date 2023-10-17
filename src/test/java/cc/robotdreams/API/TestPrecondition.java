@@ -1,9 +1,9 @@
 package cc.robotdreams.API;
 
 import cc.robotdreams.utils.TestSetupTeardown;
+import io.cucumber.java.BeforeAll;
 import io.qameta.allure.Feature;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
 @Feature("Preconditions for UI tests")
 public class TestPrecondition extends TestSetupTeardown

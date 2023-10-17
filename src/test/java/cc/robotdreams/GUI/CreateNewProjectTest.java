@@ -1,6 +1,7 @@
 package cc.robotdreams.GUI;
 
 
+import cc.robotdreams.API.TestPrecondition;
 import cc.robotdreams.kanboard.ui.CreateNewProjectPage;
 import cc.robotdreams.kanboard.ui.LoginPage;
 import cc.robotdreams.utils.TestSetupTeardown;
@@ -11,7 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Feature("UI tests")
-public class CreateNewProjectTest extends TestSetupTeardown
+public class CreateNewProjectTest extends TestPrecondition
 {
     LoginPage loginPage;
     CreateNewProjectPage newProjectPage;

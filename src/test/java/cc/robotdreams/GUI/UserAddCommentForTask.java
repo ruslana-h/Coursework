@@ -5,7 +5,6 @@ import cc.robotdreams.kanboard.api.JsonRequestGenerator;
 import cc.robotdreams.kanboard.ui.CreateNewTaskPage;
 import cc.robotdreams.kanboard.ui.DashboardPage;
 import cc.robotdreams.kanboard.ui.SaveButton;
-import cc.robotdreams.utils.TestData;
 import cc.robotdreams.utils.Wait;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;

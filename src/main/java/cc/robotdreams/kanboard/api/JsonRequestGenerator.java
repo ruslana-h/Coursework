@@ -1,6 +1,5 @@
 package cc.robotdreams.kanboard.api;
 
-import cc.robotdreams.utils.DataForTest;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class JsonRequestGenerator {
@@ -16,7 +15,7 @@ public class JsonRequestGenerator {
 
     public static String generateRandomPassword()
     {
-        return RandomStringUtils.randomAlphanumeric(8);
+        return RandomStringUtils.randomNumeric(8);
     }
 
 }

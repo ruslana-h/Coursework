@@ -1,24 +1,22 @@
 package cc.robotdreams.API;
 
-import cc.robotdreams.API.POJO.*;
+
 import cc.robotdreams.kanboard.api.JsonRequestGenerator;
+import cc.robotdreams.kanboard.api.POJO.*;
+import cc.robotdreams.kanboard.api.TestData;
 import cc.robotdreams.utils.Config;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
 @Feature("API tests")
 public class CreateDeleteProjectTest
 {
-    static int projectId;
     @Description("Create new project by API")
     @Test()
     public void createNewProject()
@@ -38,21 +36,18 @@ public class CreateDeleteProjectTest
                 .statusCode(200)
                 .extract().as(CreateProjectResponse.class);
 
-        projectId = response.getResult();
+        TestData.PROJECT_ID = response.getResult();
     }
 
     @Description("Connect the user to the project by API")
     @Test
     public void addProjectUser()
     {
-        List<String> value = new ArrayList<>();
-        value.add(String.valueOf(projectId));
-        value.add(String.valueOf(CreateDeleteUserTest.userId));
-        value.add("project-viewer");
-        //AddProjectToUser params = new AddProjectToUser(value);
+        Object[] value = {TestData.PROJECT_ID, TestData.USER_ID, "project-owner"};
         System.out.println(value);
         String method = "addProjectUser";
         Root requestBody = new Root(method, value);
+        System.out.println(requestBody.getParams());
 
         AddProjectToUserResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)
@@ -71,9 +66,9 @@ public class CreateDeleteProjectTest
     @Test()
     public void deleteProject()
     {
-        DeleteProject id = new DeleteProject(projectId);
+        DeleteProject id = new DeleteProject(TestData.PROJECT_ID);
         String method = "removeProject";
-        Root requestBody = new Root(method, id.toString());
+        Root requestBody = new Root(method, id);
 
         DeleteProjectResponse response = given()
                 .auth().basic(Config.BASE_USER_NAME.value, Config.BASE_USER_TOKEN.value)

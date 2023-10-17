@@ -1,14 +1,12 @@
 package cc.robotdreams.API;
 
-import cc.robotdreams.API.POJO.*;
 import cc.robotdreams.kanboard.api.JsonRequestGenerator;
+import cc.robotdreams.kanboard.api.POJO.*;
+import cc.robotdreams.kanboard.api.TestData;
 import cc.robotdreams.utils.Config;
-import cc.robotdreams.utils.TestData;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,14 +15,12 @@ import static io.restassured.RestAssured.given;
 @Feature("API tests")
 public class CreateDeleteTaskTest
 {
-    static int taskId;
+    //static int taskId;
     @Description("Create new task by API")
     @Test
     public void createNewTask()
     {
-        int id = CreateDeleteProjectTest.projectId;
-        System.out.println(id);
-        CreateTaskParams params = new CreateTaskParams(JsonRequestGenerator.generateRandomTitle(), id);
+        CreateTaskParams params = new CreateTaskParams(JsonRequestGenerator.generateRandomTitle(), TestData.PROJECT_ID);
         String method = "createTask";
         Root requestBody = new Root(method, params);
 
@@ -39,14 +35,14 @@ public class CreateDeleteTaskTest
                 .extract().as(CreateTaskResponse.class);
 
         System.out.println(response.getResult());
-        taskId = response.getResult();
+        TestData.TASK_ID = response.getResult();
         Assert.assertEquals(response.getResult(), false, "Task is not created");
     }
     @Description("Delete the task by API")
     @Test
     public void deleteTask()
     {
-        DeleteTaskParams params = new DeleteTaskParams(taskId);
+        DeleteTaskParams params = new DeleteTaskParams(TestData.TASK_ID);
         String method = "removeTask";
         Root requestBody = new Root(method, params);
 

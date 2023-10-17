@@ -1,8 +1,10 @@
 package cc.robotdreams.kanboard.ui;
 
-import cc.robotdreams.utils.TestData;
+import cc.robotdreams.kanboard.api.TestData;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+
+import static cc.robotdreams.kanboard.api.TestData.*;
 
 
 public class CreateNewTaskPage
@@ -16,8 +18,8 @@ public class CreateNewTaskPage
     public void createTask()
     {
         addNewTask.click();
-        taskTitle.sendKeys(TestData.TASK_NAME.getValue());
-        taskDescription.sendKeys(TestData.TASK_DESCRIPTION.getValue());
+        taskTitle.sendKeys(TASK_TITLE);
+        taskDescription.sendKeys(TASK_DESC);
         addAssignee.click();
         SaveButton saveButton = new SaveButton();
         saveButton.saveButton.click();

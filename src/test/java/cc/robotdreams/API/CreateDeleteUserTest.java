@@ -1,7 +1,7 @@
 package cc.robotdreams.API;
 
-import cc.robotdreams.API.POJO.*;
-import cc.robotdreams.kanboard.api.JsonRequestGenerator;
+import cc.robotdreams.kanboard.api.POJO.*;
+import cc.robotdreams.kanboard.api.TestData;
 import cc.robotdreams.utils.Config;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
@@ -14,14 +14,13 @@ import static io.restassured.RestAssured.given;
 @Feature("API tests")
 public class CreateDeleteUserTest
 {
-    static int userId;
+    //static int userId;
     @Description("Create new user by API")
-    @Test(groups = "createUser", priority = 1)
+    @Test()
     public void createNewUser()
     {
         String method = "createUser";
-        CreateUser user = new CreateUser(JsonRequestGenerator.generateRandomName(),
-                                         JsonRequestGenerator.generateRandomPassword());
+        CreateUser user = new CreateUser(TestData.USERNAME, TestData.PASSWORD);
         Root requestBody = new Root(method, user);
 
         CreateUserResponse response = given()
@@ -35,16 +34,14 @@ public class CreateDeleteUserTest
                 .extract().as(CreateUserResponse.class);
 
         Assert.assertNotEquals(response.getResult(), false, "User is not created");
-        userId = response.getResult();
-        System.out.println(userId);
-
+        TestData.USER_ID = response.getResult();
     }
 
     @Description("Delete the user by API")
     @Test(priority = 5)
     public void deleteUser()
     {
-        DeleteUser id = new DeleteUser(userId);
+        DeleteUser id = new DeleteUser(TestData.USER_ID);
 
         String method = "removeUser";
         Root requestBody = new Root(method, id);
@@ -59,7 +56,6 @@ public class CreateDeleteUserTest
                 .statusCode(200)
                 .extract().as(DeleteUserResponse.class);
 
-        System.out.println(response.isResult());
-        Assert.assertEquals(true, response.isResult(), "User is not deleted");
+        Assert.assertEquals(response.isResult(), true, "User is not deleted");
     }
 }
