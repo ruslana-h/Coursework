@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class UserCreatesNewTaskTest extends TestPrecondition
 {
     @Description("User creates new task UI test")
-    @Test
+    @Test(groups = "ui-tests")
     public void userCreateNewTask()
     {
         LoginUserTest login = new LoginUserTest();

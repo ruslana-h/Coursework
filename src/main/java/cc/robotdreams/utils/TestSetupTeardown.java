@@ -3,7 +3,6 @@ package cc.robotdreams.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import io.cucumber.java.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestNGListener;
 import org.testng.annotations.*;

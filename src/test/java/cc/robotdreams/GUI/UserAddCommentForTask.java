@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 public class UserAddCommentForTask extends TestPrecondition
 {
     @Description("Add comment for created task UI test")
-    @Test
+    @Test(groups = "ui-tests")
     public void addComment(){
         String commentText = JsonRequestGenerator.generateRandomTitle();
         LoginUserTest login = new LoginUserTest();

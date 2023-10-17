@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class CloseTaskTest extends TestPrecondition
 {
     @Description("Close created task UI test")
-    @Test
+    @Test(groups = "ui-tests")
     public void closeTask()
     {
         LoginUserTest login = new LoginUserTest();

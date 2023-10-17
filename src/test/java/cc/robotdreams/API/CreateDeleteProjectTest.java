@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 public class CreateDeleteProjectTest
 {
     @Description("Create new project by API")
-    @Test()
+    @Test(groups = "api-tests")
     public void createNewProject()
     {
         String text = JsonRequestGenerator.generateRandomTitle();
@@ -40,7 +40,7 @@ public class CreateDeleteProjectTest
     }
 
     @Description("Connect the user to the project by API")
-    @Test
+    @Test(groups = "api-tests")
     public void addProjectUser()
     {
         Object[] value = {TestData.PROJECT_ID, TestData.USER_ID, "project-owner"};
@@ -63,7 +63,7 @@ public class CreateDeleteProjectTest
     }
 
     @Description("Delete project by API")
-    @Test()
+    @Test(groups = "api-tests")
     public void deleteProject()
     {
         DeleteProject id = new DeleteProject(TestData.PROJECT_ID);

@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="UI TestSuite">
+        <groups>
+            <run>
+                <include name="ui-tests" />
+            </run>
+        </groups>
+        <parameter name="browser" value="firefox" />
+</suite>

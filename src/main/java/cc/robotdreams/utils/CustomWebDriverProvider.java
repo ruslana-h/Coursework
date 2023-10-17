@@ -28,17 +28,15 @@ public class CustomWebDriverProvider implements WebDriverProvider {
         options.addArguments("disable-default-apps");
         options.addArguments("disable-extensions");
         options.addArguments("--start-maximized");
-        //options.addArguments("lang=en_US");
-        //options.setAcceptInsecureCerts(true);
-        //options.addArguments("auto-open-devtools-for-tabs");
-        //options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation", "load-extension"});
+        options.setAcceptInsecureCerts(true);
+
         if (Config.WEB_BROWSER_NO_GUI.isTrue()) {
             options.addArguments("--headless");
             options.addArguments("--no-sandbox");
         }
         WebDriver driver = new ChromeDriver(options);
         Configuration.browserCapabilities = options;
-        // options.addArguments("--headless"); // Запустити у режимі без графічного інтерфейсу
+        // options.addArguments("--headless");
 
             return driver;
         } else if (browser.equalsIgnoreCase("firefox")) {

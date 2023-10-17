@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 public class LoginUserTest extends TestPrecondition
 {
     @Description("Login user UI test")
-    @Test
+    @Test(groups = "ui-tests")
     public void loginUser()
     {
         LoginPage loginPage = new LoginPage();

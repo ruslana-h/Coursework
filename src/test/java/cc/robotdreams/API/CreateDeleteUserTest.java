@@ -16,7 +16,7 @@ public class CreateDeleteUserTest
 {
     //static int userId;
     @Description("Create new user by API")
-    @Test()
+    @Test(groups = "api-tests")
     public void createNewUser()
     {
         String method = "createUser";
@@ -38,7 +38,7 @@ public class CreateDeleteUserTest
     }
 
     @Description("Delete the user by API")
-    @Test(priority = 5)
+    @Test(groups = "api-tests")
     public void deleteUser()
     {
         DeleteUser id = new DeleteUser(TestData.USER_ID);

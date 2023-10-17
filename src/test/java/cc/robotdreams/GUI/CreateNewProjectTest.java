@@ -17,7 +17,7 @@ public class CreateNewProjectTest extends TestPrecondition
     LoginPage loginPage;
     CreateNewProjectPage newProjectPage;
     @Description("Create new project for logged in user UI test")
-    @Test
+    @Test(groups = "ui-tests")
     public void CreateNewProject(){
         loginPage = new LoginPage();
         loginPage.fillInLoginForm();

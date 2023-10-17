@@ -17,7 +17,7 @@ public class CreateDeleteTaskTest
 {
     //static int taskId;
     @Description("Create new task by API")
-    @Test
+    @Test(groups = "api-tests")
     public void createNewTask()
     {
         CreateTaskParams params = new CreateTaskParams(JsonRequestGenerator.generateRandomTitle(), TestData.PROJECT_ID);
@@ -39,7 +39,7 @@ public class CreateDeleteTaskTest
         Assert.assertEquals(response.getResult(), false, "Task is not created");
     }
     @Description("Delete the task by API")
-    @Test
+    @Test(groups = "api-tests")
     public void deleteTask()
     {
         DeleteTaskParams params = new DeleteTaskParams(TestData.TASK_ID);
