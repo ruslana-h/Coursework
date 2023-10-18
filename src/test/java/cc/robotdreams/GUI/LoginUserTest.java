@@ -1,10 +1,8 @@
 package cc.robotdreams.GUI;
 
 import cc.robotdreams.API.TestPrecondition;
-import cc.robotdreams.kanboard.api.POJO.CreateUser;
 import cc.robotdreams.kanboard.api.TestData;
 import cc.robotdreams.kanboard.ui.LoginPage;
-import cc.robotdreams.utils.TestSetupTeardown;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;

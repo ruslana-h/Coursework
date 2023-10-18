@@ -5,7 +5,7 @@
                 <include name="api-tests" />
             </run>
         </groups>
-        <parameter name="browser" value="firefox" />
+        <parameter name="browser" value="chrome" />
 </suite>
 
 

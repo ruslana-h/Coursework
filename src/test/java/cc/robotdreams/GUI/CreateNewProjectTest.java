@@ -4,7 +4,6 @@ package cc.robotdreams.GUI;
 import cc.robotdreams.API.TestPrecondition;
 import cc.robotdreams.kanboard.ui.CreateNewProjectPage;
 import cc.robotdreams.kanboard.ui.LoginPage;
-import cc.robotdreams.utils.TestSetupTeardown;
 import cc.robotdreams.utils.Wait;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;

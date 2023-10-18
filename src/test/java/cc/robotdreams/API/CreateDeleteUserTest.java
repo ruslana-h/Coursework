@@ -14,7 +14,6 @@ import static io.restassured.RestAssured.given;
 @Feature("API tests")
 public class CreateDeleteUserTest
 {
-    //static int userId;
     @Description("Create new user by API")
     @Test(groups = "api-tests")
     public void createNewUser()

@@ -36,6 +36,7 @@ public class CreateDeleteProjectTest
                 .statusCode(200)
                 .extract().as(CreateProjectResponse.class);
 
+        Assert.assertNotEquals(response.getResult(), false, "User is not created");
         TestData.PROJECT_ID = response.getResult();
     }
 

@@ -1,7 +1,6 @@
 package cc.robotdreams.API;
 
 import cc.robotdreams.utils.TestSetupTeardown;
-import io.cucumber.java.BeforeAll;
 import io.qameta.allure.Feature;
 import org.testng.annotations.*;
 

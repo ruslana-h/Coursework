@@ -18,6 +18,9 @@ public class Config
     static final public Param BASE_USER_NAME    = new Param("base.user.name",   "jsonrpc",      true);
     static final public Param BASE_USER_TOKEN    = new Param("base.user.token",   "0cfd28d2f0af00ac9778695a633457d4a0b2d9aa4fd5ee4afa92fcee7227",      true);
     static final public Param WEB_BROWSER_NO_GUI    = new Param("web.browser.no.gui",   "false", true);
+    static final public Param BROWSER_WIN_WIDTH     = new Param("web.browser.win.width",   "1440", true);
+    static final public Param BROWSER_WIN_HEIGHT    = new Param("web.browser.win.height",  "1024",  true);
+    static final public Param WEB_BROWSER           = new Param("web.browser",   "firefox",       true);
 
     static final public String baseURI = String.format("http://%s:%s/%s",
             HTTP_BASE_URL.value,
@@ -92,7 +95,7 @@ public class Config
     static private Properties getEnvProperties() {
         if (envProperties == null) {
             envProperties = new Properties();
-            environmentName = System.getProperty("env", "dev");
+            environmentName = System.getProperty("env", "local");
             envProperties.putAll(getResourceProperties("common.properties"));
             envProperties.putAll(getResourceProperties("env/" + environmentName + ".properties"));
             envProperties.putAll(getResourceProperties("allure.properties"));

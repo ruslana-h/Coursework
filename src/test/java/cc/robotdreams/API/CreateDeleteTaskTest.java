@@ -15,7 +15,6 @@ import static io.restassured.RestAssured.given;
 @Feature("API tests")
 public class CreateDeleteTaskTest
 {
-    //static int taskId;
     @Description("Create new task by API")
     @Test(groups = "api-tests")
     public void createNewTask()
@@ -36,7 +35,7 @@ public class CreateDeleteTaskTest
 
         System.out.println(response.getResult());
         TestData.TASK_ID = response.getResult();
-        Assert.assertEquals(response.getResult(), false, "Task is not created");
+        Assert.assertEquals(response.getResult(), true, "Task is not created");
     }
     @Description("Delete the task by API")
     @Test(groups = "api-tests")
@@ -57,6 +56,6 @@ public class CreateDeleteTaskTest
                 .extract().as(DeleteTaskResponse.class);
 
         System.out.println(response.isResult());
-        Assert.assertEquals(true, response.isResult(), "The task is not deleted");
+        Assert.assertEquals(response.isResult(), true, "The task is not deleted");
     }
 }
